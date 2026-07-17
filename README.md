@@ -30,11 +30,14 @@ The manipulator's rigid-body dynamics can be described by
 
 $$ \boldsymbol{H}(\boldsymbol{q}) \ddot{\boldsymbol{q}}+\boldsymbol{C}(\boldsymbol{q},\dot{\boldsymbol{q}})\dot{\boldsymbol{q}}+\boldsymbol{D} \dot{\boldsymbol{q}}+\boldsymbol{g}(\boldsymbol{q})=\boldsymbol{\tau} $$
 
-where $\boldsymbol{q} \in \mathbb{R}^{n}$ is the vector of generalized joint coordinates, $\boldsymbol{D} \in \mathbb{R}^{n \times n}$ is a diagonal positive semidefinite matrix of viscous friction coefficients of the joint.
+where $\boldsymbol{q} \in \mathbb{R}^{n}$ is the vector of generalized joint coordinates, $\boldsymbol{H}(\boldsymbol{q}) \in \mathbb{R}^{n \times n}$ is the symmetric positive definite inertia matrix, $\boldsymbol{C}(\boldsymbol{q},\dot{\boldsymbol{q}})\dot{\boldsymbol{q}} \in \mathbb{R}^{n \times n}$ is the vector of Coriolis and centrifugal torques, $\boldsymbol{D} \in \mathbb{R}^{n \times n}$ is a diagonal positive semidefinite matrix of viscous friction coefficients of the joint, $\boldsymbol{g}(\boldsymbol{q}) \in \mathbb{R}^{n}$ is the vector of gravitational torques, and $\boldsymbol{\tau} \in \mathbb{R}^{n}$ is the vector of input torques
+acting at the joints.
 
-The left-hand side of the previous robot model can be linearly parametrized in terms of an unknown constant parameter vector $\theta$:
+The left-hand side of the previous robot model can be linearly parametrized in terms of an unknown constant parameter vector $\boldsymbol{\theta} \in \mathbb{R}^p$:
 
-`tau - C(q, q_dot)*q_dot - g(q) = Y(q, q_dot, q_ddot) * pi`
+$$ \boldsymbol{H}(\boldsymbol{q}) \ddot{\boldsymbol{q}}+\boldsymbol{C}(\boldsymbol{q}, \dot{\boldsymbol{q}}) \dot{\boldsymbol{q}}+\boldsymbol{D} \dot{\boldsymbol{q}}+\boldsymbol{g}(\boldsymbol{q}) = \boldsymbol{Y}(\boldsymbol{q}, \dot{\boldsymbol{q}}, \ddot{\boldsymbol{q}}) \boldsymbol{\theta}, $$
+
+where $\boldsymbol{Y}(\boldsymbol{q}, \dot{\boldsymbol{q}}, \ddot{\boldsymbol{q}}) \in \mathbb{R}^{n \times p}$ is the so-called regressor.
 
 A core strength of this experimental validation lies in evaluating algorithm resilience under real-world modeling discrepancies:
 * **Geomagic Touch:** A reduced-order geometric formulation introduces structural uncertainty. While simulations prove exact theoretical convergence, laboratory trials validate the robust identification of dominant gravitational terms.
