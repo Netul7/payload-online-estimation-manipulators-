@@ -26,7 +26,13 @@ Standard parameter estimation methods (like RLS or gradient-descent) rely heavil
 This project implements a **Modified Dynamic Regressor Extension and Mixing (MDREM)** approach, an advanced enhancement of the DREM technique, to overcome these limitations and achieve decoupled, finite-time parameter convergence.
 
 ### 1. Dynamic Regressor Parametrization & Real-World Uncertainty
-The manipulator's rigid-body dynamics are linearly parametrized in terms of an unknown constant parameter vector `pi`:
+The manipulator's rigid-body dynamics can be described by
+
+$$ \boldsymbol{H}(\boldsymbol{q}) \ddot{\boldsymbol{q}}+\boldsymbol{C}(\boldsymbol{q},\dot{\boldsymbol{q}})\dot{\boldsymbol{q}}+\boldsymbol{D} \dot{\boldsymbol{q}}+\boldsymbol{g}(\boldsymbol{q})=\boldsymbol{\tau} $$
+
+where $\boldsymbol{q} \in \mathbb{R}^{n}$ is the vector of generalized joint coordinates, $\boldsymbol{D} \in \mathbb{R}^{n \times n}$ is a diagonal positive semidefinite matrix of viscous friction coefficients of the joint.
+
+The left-hand side of the previous robot model can be linearly parametrized in terms of an unknown constant parameter vector $\theta$:
 
 `tau - C(q, q_dot)*q_dot - g(q) = Y(q, q_dot, q_ddot) * pi`
 
