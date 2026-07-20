@@ -46,13 +46,15 @@ A core strength of this experimental validation lies in evaluating algorithm res
 ### 2. Extension and Mixing (The DREM Principle)
 To decouple the parameter vector, the initial regressor equation is extended by applying stable Linear Time-Invariant (LTI) filtering operators, generating an extended square system:
 
-`Y_ext(t) * pi = tau_ext(t)`
+$$ \boldsymbol{Y}_{\mathrm{f}} \boldsymbol{\theta} = \boldsymbol{\tau}_{\mathrm{f}}, $$
 
-By premultiplying the extended system by the adjugate matrix `adj(Y_ext(t))`, the system is algebraically transformed into `q` **independent scalar equations**:
+where $ \boldsymbol{Y}_{\mathrm{f}} \in \mathbb{R}^{p \times p}$ is the extended regressor, and $\boldsymbol{\tau}_{\mathrm{f}} \in \mathbb{R}^{p}$ is the extended input torque vector, which is obtaned by applying the exact same filtering operators to the input torque vector. A general procedure to extend the regressor and the input torque vector is given in [*On the exact parameter estimation of robot manipulators with a predefined minimal amount of excitation*](https://doi.org/10.1002/rnc.7106).
 
-`phi_i(t) * pi_i = y_i(t),   for i = 1, 2, ..., q`
+By premultiplying the extended system on both sides by the adjugate matrix $adj(\boldsymbol{Y}_{\mathrm{f}})$, the system is algebraically transformed into $p$ **independent scalar equations**:
 
-Where `phi_i(t) = det(Y_ext(t))` is the scalar regressor. 
+$$ \phi \theta_i = \tau_{\text{e} i},   for i = 1, 2, ..., p $$
+
+Where $\phi = det(\boldsymbol{Y}_{\mathrm{f}})$ is the scalar regressor. 
 
 ### 3. The MDREM Enhancement
 While standard DREM decouples the system, convergence speed is still tied to the determinant's behavior. The **Modified DREM (MDREM)** introduced in this work implements an optimized adaptation law and filtering architecture that:
