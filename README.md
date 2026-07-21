@@ -23,7 +23,7 @@ The MDREM framework is systematically validated across two distinct robotic arch
 
 Standard parameter estimation methods (like RLS or gradient-descent) rely heavily on strict **Persistency of Excitation (PE)** conditions over the entire trajectory and suffer from parameter coupling, meaning poor excitation in one degree of freedom degrades the convergence of all parameters.
 
-This project implements a **Modified Dynamic Regressor Extension and Mixing (MDREM)** approach, an advanced enhancement of the DREM technique, to overcome these limitations and achieve decoupled, finite-time parameter convergence.
+This project implements a **Modified Dynamic Regressor Extension and Mixing (MDREM)** approach, an advanced enhancement of the DREM technique, to overcome these limitations and achieve decoupled, fixed-time parameter convergence.
 
 ### 1. Dynamic Regressor Parametrization & Real-World Uncertainty
 The manipulator's rigid-body dynamics can be described by
@@ -48,18 +48,56 @@ To decouple the parameter vector, the initial regressor equation is extended by 
 
 $$ \boldsymbol{Y}_{\mathrm{f}} \boldsymbol{\theta} = \boldsymbol{\tau}_{\mathrm{f}}, $$
 
-where $ \boldsymbol{Y}_{\mathrm{f}} \in \mathbb{R}^{p \times p}$ is the extended regressor, and $\boldsymbol{\tau}_{\mathrm{f}} \in \mathbb{R}^{p}$ is the extended input torque vector, which is obtaned by applying the exact same filtering operators to the input torque vector. A general procedure to extend the regressor and the input torque vector is given in [*On the exact parameter estimation of robot manipulators with a predefined minimal amount of excitation*](https://doi.org/10.1002/rnc.7106).
+where $\boldsymbol{Y}_{\mathrm{f}} \in \mathbb{R}^{p \times p}$ is the extended regressor, and $\boldsymbol{\tau}_{\mathrm{f}} \in \mathbb{R}^{p}$ is the extended input torque vector, which is obtained by applying the exact same filtering operators to the input torque vector. A general procedure to extend the regressor and the input torque vector is given in [*On the exact parameter estimation of robot manipulators with a predefined minimal amount of excitation*](https://doi.org/10.1002/rnc.7106).
 
 By premultiplying the extended system on both sides by the adjugate matrix $adj(\boldsymbol{Y}_{\mathrm{f}})$, the system is algebraically transformed into $p$ **independent scalar equations**:
 
-$$ \phi \theta_i = \tau_{\text{e} i},   for i = 1, 2, ..., p $$
+$$ \phi \theta_i = \tau_{\text{e} i}, \quad  for  \quad i = 1, 2, ..., p, $$
 
-Where $\phi = det(\boldsymbol{Y}_{\mathrm{f}})$ is the scalar regressor. 
+where $\phi = det(\boldsymbol{Y}_{\mathrm{f}})$ is the determinant of the extended regressor. 
 
 ### 3. The MDREM Enhancement
 While standard DREM decouples the system, convergence speed is still tied to the determinant's behavior. The **Modified DREM (MDREM)** introduced in this work implements an optimized adaptation law and filtering architecture that:
 1. **Accelerates convergence rates** for individual physical parameters without increasing high-frequency noise amplification.
 2. **Relaxes excitation requirements**, allowing the identification of critical payload parameters (such as mass `m` and center of mass `r_com`) even under smooth, non-aggressive industrial trajectories.
+
+The main goal of the MDREM approach is to design an adaptive algorithm capable of performing exact parameter estimation when 
+
+$$
+\phi^2 \geq \eta_{\mathrm{m}} \quad \text { for } \quad T_{\mathrm{m}} \mathrm{~[s]},
+$$
+
+which represents a convergence condition, and where $\eta_{\mathrm{m}}$ and $T_{\mathrm{m}}$ are positive constants that can be assumed to be arbitrarily small. Then, $\eta_{\mathrm{m}}$ can be viewed as a predefined minimal amount of excitation. The previous condition also indicates that $\phi \neq 0$ for $T_{\mathrm{m}}$. More formally, this could be expressed as that for a $T_{\mathrm{m}}$, $\phi^2 \notin \mathcal{L}_2$.
+
+Since the system equation has been decoupled, we can design and implement $p$ independent estimators, using any adaptive law to estimate the parameters. The MDREM approach achieves this by using a fixed-time adaptive law given by: 
+
+$$
+\dot{\hat{\theta}}_i=-\gamma_i \text{sign}\left(e_{\theta i}\right)\left|e_{\theta i}\right|^{\lambda_{\theta i}\text{tanh}(e_{\theta i}^2)} \equiv -\gamma_i \text{sign}\left(e_{\theta i}\right)f_{\theta i}(e_{\theta i}),
+$$
+
+with
+
+$$
+f_{\theta i}(e_{\theta i}) = \left|e_{\theta i}\right|^{\lambda_{\theta i}\text{tanh}(e_{\theta i}^2)},
+$$
+
+and
+
+$$
+e_{\theta i}=\phi_{\mathrm{m}}\left(\phi_{\mathrm{m}} \hat{\theta}_i-\tau_{\epsilon i}\right)=\phi_{\mathrm{m}}^2 \tilde{\theta}_i,
+$$
+
+where $\tilde{\theta}_i$ is the \textit{i-}th element of $\tilde{\boldsymbol{\theta}} \in \mathbb{R}^p$ and \eqref{param error} has been used; $\gamma_i$ denotes the \textit{i-}th element of a diagonal positive definite matrix $\boldsymbol{\Gamma} \in \mathbb{R}^{p \times p}$; lastly, $\lambda_{\theta i}$ is a positive constant that satisfies
+
+$$
+{\lambda_{\theta i}\text{tanh}(1)} = \beta_{\theta i} > 1, \quad \lambda_{\theta i} > \frac{\alpha_{\theta i}}{\text{tanh}(1)}, \quad \alpha_{\theta i}>1,
+$$
+
+while the sign function for $x \in \mathbb{R}$ is defined as
+
+$$
+\text{sign}(x)= \begin{cases}1 & \text { if } \quad x>0 \\ 0 & \text { if } \quad x=0 \\ -1 & \text { if } \quad x<0\end{cases}
+$$
 
 ---
 
