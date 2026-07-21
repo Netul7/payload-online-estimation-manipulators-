@@ -48,7 +48,7 @@ To decouple the parameter vector, the initial regressor equation is extended by 
 
 $$ \boldsymbol{Y}_{\mathrm{f}} \boldsymbol{\theta} = \boldsymbol{\tau}_{\mathrm{f}}, $$
 
-where $\boldsymbol{Y}_{\mathrm{f}} \in \mathbb{R}^{p \times p}$ is the extended regressor, and $\boldsymbol{\tau}_{\mathrm{f}} \in \mathbb{R}^{p}$ is the extended input torque vector, which is obtained by applying the exact same filtering operators to the input torque vector. A general procedure to extend the regressor and the input torque vector is given in [*On the exact parameter estimation of robot manipulators with a predefined minimal amount of excitation*](https://doi.org/10.1002/rnc.7106).
+where $`\boldsymbol{Y}_{\mathrm{f}} \in \mathbb{R}^{p \times p}`$ is the extended regressor, and $`\boldsymbol{\tau}_{\mathrm{f}} \in \mathbb{R}^{p}`$ is the extended input torque vector, which is obtained by applying the exact same filtering operators to the input torque vector. A general procedure to extend the regressor and the input torque vector is given in [*On the exact parameter estimation of robot manipulators with a predefined minimal amount of excitation*](https://doi.org/10.1002/rnc.7106).
 
 By premultiplying the extended system on both sides by the adjugate matrix $adj(\boldsymbol{Y}_{\mathrm{f}})$, the system is algebraically transformed into $p$ **independent scalar equations**:
 
@@ -87,7 +87,7 @@ $$
 e_{\theta i}=\phi_{\mathrm{m}}\left(\phi_{\mathrm{m}} \hat{\theta}_i-\tau_{\epsilon i}\right)=\phi_{\mathrm{m}}^2 \tilde{\theta}_i,
 $$
 
-where $\tilde{\theta}_i$ is the \textit{i-}th element of $\tilde{\boldsymbol{\theta}} \in \mathbb{R}^p$ and \eqref{param error} has been used; $\gamma_i$ denotes the \textit{i-}th element of a diagonal positive definite matrix $\boldsymbol{\Gamma} \in \mathbb{R}^{p \times p}$; lastly, $\lambda_{\theta i}$ is a positive constant that satisfies
+where $`\tilde{\theta}_i`$ is the *i*-th element of the parameter error vector $`\tilde{\boldsymbol{\theta}}=\hat{\boldsymbol{\theta}}-\boldsymbol{\theta} \in \mathbb{R}^p`$; $`\gamma_i`$ denotes the *i*-th element of a diagonal positive definite matrix $`\boldsymbol{\Gamma} \in \mathbb{R}^{p \times p}`$; lastly, $`\lambda_{\theta i}`$ is a positive constant that satisfies
 
 $$
 {\lambda_{\theta i}\text{tanh}(1)} = \beta_{\theta i} > 1, \quad \lambda_{\theta i} > \frac{\alpha_{\theta i}}{\text{tanh}(1)}, \quad \alpha_{\theta i}>1,
@@ -96,8 +96,14 @@ $$
 while the sign function for $x \in \mathbb{R}$ is defined as
 
 $$
-\text{sign}(x)= \begin{cases}1 & \text { if } \quad x>0 \\ 0 & \text { if } \quad x=0 \\ -1 & \text { if } \quad x<0\end{cases}
+\text{sign}(x) = \begin{cases} 
+1 & \text{if } x > 0, \\
+0 & \text{if } x = 0, \\
+-1 & \text{if } x < 0.
+\end{cases}
 $$
+
+To see more details about the MDREM algorithm and its specific implementation for each robot, you can consult my master's thesis [*Master's Thesis*](https://tesiunamdocumentos.dgb.unam.mx/ptd2026/ene_mar/0881038/Index.html).
 
 ---
 
@@ -119,6 +125,14 @@ $$
 ### 1. Simulink Model vs. Experimental Data (Geomagic Touch)
 ![Geomagic Comparison](path/to/your/image_or_plot.png)
 *Figure 1: Comparison between simulation trajectory tracking and real hardware execution.*
+
+#### 1.1 Simulation
+
+#### 1.2 Experiment
+
+[![Watch the video](https://img.youtube.com/vi/MhCmMc3zWXQ/maxresdefault.jpg)](https://www.youtube.com/shorts/MhCmMc3zWXQ)
+
+*Click the image to watch the video on YouTube*.  The experiment was run twice: first without a load, and second with a payload mounted. In the first run, the inertial parameters of the robot were estimated, and the parameters related to gravity torques were validated through a gravity compensation test. In the second run, a payload was mounted on the last link to estimate the combined inertial parameters of the robot and the payload. Another gravity compensation test was then performed to validate the corresponding parameters. It is worth noting the short duration of the robot trajectory and the ability of the method to correctly estimate these parameters. 
 
 ### 2. Robust Payload Parameter Convergence (Franka Research 3)
 ![Franka Convergence Plot](path/to/your/image_or_gif.gif)
