@@ -120,30 +120,40 @@ To see more details about the MDREM algorithm and its specific implementation fo
 
 ## 📊 Key Results & Convergence
 
-*(Instructions: Replace the text below with actual images or animated GIFs showing your results)*
-
 ### 1. Simulink Model vs. Experimental Data (Geomagic Touch)
-<img align="left" width="400" src="Images/Geomagic_touch_robot.jpg" alt="Geomagic Touch robot">
-
-*Figure 1: Comparison between simulation trajectory tracking and real hardware execution.*
+<div align="center">
+  <img src="Images/Geomagic_touch_robot.jpg" alt="Description" width="250">
+  <p><em>Figure 1. Geomagic Touch robot.</em></p>
+</div>
 
 #### 1.1 Simulation
-<img align="left" width="400" src="Images/sim2_param_errors.png" alt="Parameter estimation errors with initial conditions set to zero.">
+<div align="center">
+  <img src="Images/sim2_param_errors.png" alt="Description" width="400">
+  <p><em>Figure 2. Parameter estimation errors with initial conditions set to zero.</em></p>
+</div>
 
 #### 1.2 Experiment
 
-<a href="https://www.youtube.com/shorts/MhCmMc3zWXQ" target="_blank">
-  <img src="https://img.youtube.com/vi/MhCmMc3zWXQ/maxresdefault.jpg" alt="Watch the video">
-</a>
+<div align="center">
+  <a href="https://www.youtube.com/shorts/MhCmMc3zWXQ" target="_blank">
+    <img src="https://img.youtube.com/vi/MhCmMc3zWXQ/maxresdefault.jpg" alt="Watch the video" style="width: 70%; max-width: 700px;">
+  </a>
+</div>
 
 *Click the image to watch the video on YouTube*.  The experiment was run twice: first without a load, and second with a payload mounted. Each run of the experiment consists of two parts. In the first second, the robot trajectory is executed and simultaneously the MDREM technique estimates the parameters online. At the end of the trajectory, one more second passes and the validation phase of the parameters related to gravity torques immediately begins where the operator manually moves the joints of the robot to verify that the joints remain static.
 
 In the first run, the inertial parameters of the robot were estimated, and the parameters related to gravity torques were validated through a gravity compensation test. In the second run, a payload was mounted on the last link to estimate the combined inertial parameters of the robot and the payload. Another gravity compensation test was then performed to validate the corresponding parameters. It is worth noting the short duration of the robot trajectory and the ability of the method to correctly estimate these parameters. 
 
 ### 2. Robust Payload Parameter Convergence (Franka Research 3)
-<img align="left" width="400" src="Images/FR3_robot.png" alt="Franka Research 3 robot">
+<div align="center">
+  <img src="Images/FR3_robot.png" alt="Description" width="250">
+  <p><em>Figure 3. Franka Research 3 robot.</em></p>
+</div>
 
-*Figure 2: Online estimation of payload inertia parameters under baseline robot model uncertainty. The estimated values rapidly converge to a close, bounded neighborhood of the true payload metrics within [X] seconds of dynamic trajectory execution, demonstrating strong robustness against uncompensated baseline dynamics.*
+<div align="center">
+  <img src="Images/online_param_errors.png" alt="Description" width="500">
+  <p><em>Figure 4. Online estimation of payload inertia parameters under baseline robot model uncertainty. The estimated values rapidly converge to a close, bounded neighborhood of the true payload metrics within [X] seconds of dynamic trajectory execution, demonstrating strong robustness against uncompensated baseline dynamics.</em></p>
+</div>
 
 ---
 
