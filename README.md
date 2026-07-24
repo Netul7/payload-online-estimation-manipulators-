@@ -121,16 +121,31 @@ To see more details about the MDREM algorithm and its specific implementation fo
 ## 📊 Key Results & Convergence
 
 ### 1. Simulink Model vs. Experimental Data (Geomagic Touch)
+
+Originally, the Geomagic touch is a sub-actuated robot manipulator with five degrees of freedom (DoF). Nevertheless, a totally actuated three-DoF configuration can be obtained by just blocking the last two non-actuated joints, which is done here. The Geomagic touch has a pen (not actuated) at the end of the third link, which here was modified to account for the robot payload.
+
 <div align="center">
   <img src="Images/Geomagic_touch_robot.jpg" alt="Description" width="250">
   <p><em>Figure 1. Geomagic Touch robot.</em></p>
 </div>
 
+The main goal of this project was to estimate the inertial parameters of the payload. This was done in conjunction
+with the entire set of parameters of the robot manipulator.
+
+The simulations were carried out using MATLAB and SIMULINK, while the experiment were carried out using the actual Geomagic touch with the adaptive control scheme implemented in a Visual Studio/C++ application.
+
 #### 1.1 Simulation
+
+The payload of the robot was modeled as part of the robot’s last link; therefore, the inertial parameters associated with this link are expected to increase. However, it is important to keep in mind that the estimated parameters are a combination of the actual physical parameters of the links and the payload. Consequently, the vector of unknown parameters consists of ten parameters.
+
+The simulation sample time is $T = 1 \times 10^{-5}$ s. The robot trajectory is executed in 1 second, which, as shown next, is sufficient for the MDREM algorithm to estimate the parameters correctly. The simulation results are presented below:
+
 <div align="center">
   <img src="Images/sim2_param_errors.png" alt="Description" width="400">
   <p><em>Figure 2. Parameter estimation errors with initial conditions set to zero.</em></p>
 </div>
+
+Figure 2 shows the parameter estimation errors. As observed, all ten parameters achieve zero estimation error in under 0.5 seconds, demonstrating fast convergence. Finally, no noise was considered in these simulations.
 
 #### 1.2 Experiment
 
