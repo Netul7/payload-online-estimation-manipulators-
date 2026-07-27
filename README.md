@@ -136,7 +136,7 @@ The simulations were carried out using MATLAB and SIMULINK, while the experiment
 
 #### 1.1 Simulation
 
-The payload of the robot was modeled as part of the robot’s last link; therefore, the inertial parameters associated with this link are expected to increase. However, it is important to keep in mind that the estimated parameters are a combination of the actual physical parameters of the links and the payload. Consequently, the vector of unknown parameters consists of ten parameters.
+The payload of the robot was modeled as part of the robot’s last link. The estimated parameters are a combination of the actual physical parameters of the links and the payload. Consequently, the vector of unknown parameters consists of ten parameters.
 
 The simulation sample time is $T = 1 \times 10^{-5}$ s. The robot trajectory is executed in 1 second, which, as shown next, is sufficient for the MDREM algorithm to estimate the parameters correctly. The simulation results are presented below:
 
@@ -160,15 +160,31 @@ Figure 2 shows the parameter estimation errors. As observed, all ten parameters 
 In the first run, the inertial parameters of the robot were estimated, and the parameters related to gravity torques were validated through a gravity compensation test. In the second run, a payload was mounted on the last link to estimate the combined inertial parameters of the robot and the payload. Another gravity compensation test was then performed to validate the corresponding parameters. It is worth noting the short duration of the robot trajectory and the ability of the method to correctly estimate these parameters. 
 
 ### 2. Robust Payload Parameter Convergence (Franka Research 3)
+
 <div align="center">
   <img src="Images/FR3_robot.png" alt="Description" width="250">
   <p><em>Figure 3. Franka Research 3 robot.</em></p>
 </div>
 
+Unlike the Geomagic Touch robot, where the full set of parameters (including the payload) was estimated, only the inertial parameters of the payload are estimated for the Franka Research 3 (FR3) robot. The set of inertial parameters for each robot link is assumed to be known a priori.
+
+Another distinction is that, while the Geomagic Touch model was derived from the Euler–Lagrange (EL) formulation, the FR3 model is based on the Newton–Euler (NE) formulation. In the linear parameterization of the NE formulation, each link—as well as the payload—is associated with ten inertial parameters. These ten parameters
+of each link or payload are represented by
+
+$$
+\boldsymbol{\theta}_i=[m_i, \ c_{x_i}m_i, \ c_{y_i}m_i, \ c_{z_i}m_i, \ J_{xx_i}, \ J_{xy_i}, \ J_{xz_i}, \ J_{yy_i}, \ J_{yz_i}, \ J_{zz_i}]^{\mathrm{T}},
+$$
+
+where $`\boldsymbol{\theta}_i`$ is the set of parameters of the $`i`$th link for $`i = `$ 1 , ... , 7 or $`i=\mathrm{L}`$ for the payload; $`m_i`$ is the mass, $`c_{x_i}m_i`$, $`c_{y_i}m_i`$ and $`c_{z_i}m_i`$ are mass moments, and $J_{xx_i}, \ J_{xy_i}, \ J_{xz_i}, \ J_{yy_i}, \ J_{yz_i}, \ J_{zz_i}$ are the elements of the inertia tensor with respect to the frame of the link $i$ for $`i = `$ 1 , ... , 7. The inertial parameters of the payload are estimated independently (not as part of link 7) but with respect to the frame of the 7$`^{th}`$ link. The center of mass $`\boldsymbol{c}_i = \{c_{x_i}, \ c_{y_i}, \ c_{z_i}\}`$ is obtained by simply dividing the mass moments $`{c_{x_i}m_i, \ c_{y_i}m_i, \ c_{z_i}m_i}`$ by the estimated mass $`m_i`$, which is the first estimated parameter.
+
+The MDREM algorithm for the FR3 robot was implemented in ROS 2 on Ubuntu Linux using C++. The payload used for this experiment was the FR3 hand gripper, whose parameters are known a priori. The trajectory executed by the robot had a duration of 1.4 s, with a sampling time of $T = 0.001\text{ s}$. The experimental results are shown in the figure below:
+
 <div align="center">
   <img src="Images/online_param_errors.png" alt="Description" width="500">
   <p><em>Figure 4. Online estimation of payload inertia parameters under baseline robot model uncertainty. The estimated values rapidly converge to a close, bounded neighborhood of the true payload metrics within [X] seconds of dynamic trajectory execution, demonstrating strong robustness against uncompensated baseline dynamics.</em></p>
 </div>
+
+Since the payload parameters are known a priori, the results shown in the previous figure are given as parameter estimation errors.
 
 ---
 
