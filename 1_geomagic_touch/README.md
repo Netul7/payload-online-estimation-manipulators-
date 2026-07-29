@@ -14,14 +14,21 @@ To keep this documentation highly scannable, detailed kinematic and dynamic mode
 <details>
 <summary><b>1. Kinematics & Denavit-Hartenberg (DH) Parameters</b></summary>
 <br>
+
+<div align="center">
+  <img src="../Images/D-H configuration.jpg" alt="Description" width="500">
+  <p><em>Figure 1.1. Denavit-Hartenberg configuration of the simplified 3 DoF Geomagic touch.</em></p>
+</div>
+
 The kinematics of the Geomagic Touch were modeled using standard DH conventions. Below are the parameters used to compute the Jacobian and regressor matrices:
 
-| Joint (i) | a_i (m) | alpha_i (rad) | d_i (m) | theta_i (rad) |
-| :---: | :---: | :---: | :---: | :---: |
-| 1 | 0 | -pi/2 | 0 | q1 |
-| 2 | [L1] | 0 | 0 | q2 |
-| 3 | 0 | pi/2 | 0 | q3 + pi/2 |
-| ... | ... | ... | ... | ... |
+| Joint | $a_i$ [m] | $d_i$ [m] | $\alpha_i$ [rad] | $q_i$ [rad] |
+|-------|-----------|-----------|------------------|-------------|
+| 1     | 0         | 0         | $\pi/2$          | $q_1^*$     |
+| 2     | 0.145     | 0         | 0                | $q_2^*$     |
+| 3     | 0.1738    | 0         | 0                | $q_3^*$     |
+
+$*$ variable quantity
 
 *(Note: Full derivations of transformation matrices are implemented in `matlab_scripts/init_params.m`)*
 </details>
