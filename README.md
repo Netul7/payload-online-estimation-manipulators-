@@ -166,7 +166,7 @@ In the first run, the inertial parameters of the robot were estimated, and the p
   <p><em>Figure 3. Franka Research 3 robot.</em></p>
 </div>
 
-Unlike the Geomagic Touch robot, where the full set of parameters (including the payload) was estimated, only the inertial parameters of the payload are estimated for the Franka Research 3 (FR3) robot. The set of inertial parameters for each robot link is assumed to be known a priori.
+Unlike the Geomagic Touch robot, where the full set of parameters (including the payload) was estimated, only the inertial parameters of the payload are estimated for the Franka Research 3 (FR3) robot. The set of inertial parameters for each robot link is assumed to be known *a priori*.
 
 Another distinction is that, while the Geomagic Touch model was derived from the Euler–Lagrange (EL) formulation, the FR3 model is based on the Newton–Euler (NE) formulation. In the linear parameterization of the NE formulation, each link—as well as the payload—is associated with ten inertial parameters. These ten parameters
 of each link or payload are represented by
@@ -177,14 +177,16 @@ $$
 
 where $`\boldsymbol{\theta}_i`$ is the set of parameters of the $`i`$th link for $`i = `$ 1 , ... , 7 or $`i=\mathrm{L}`$ for the payload; $`m_i`$ is the mass, $`c_{x_i}m_i`$, $`c_{y_i}m_i`$ and $`c_{z_i}m_i`$ are mass moments, and $J_{xx_i}, \ J_{xy_i}, \ J_{xz_i}, \ J_{yy_i}, \ J_{yz_i}, \ J_{zz_i}$ are the elements of the inertia tensor with respect to the frame of the link $i$ for $`i = `$ 1 , ... , 7. The inertial parameters of the payload are estimated independently (not as part of link 7) but with respect to the frame of the 7$`^{th}`$ link. The center of mass $`\boldsymbol{c}_i = \{c_{x_i}, \ c_{y_i}, \ c_{z_i}\}`$ is obtained by simply dividing the mass moments $`{c_{x_i}m_i, \ c_{y_i}m_i, \ c_{z_i}m_i}`$ by the estimated mass $`m_i`$, which is the first estimated parameter.
 
-The MDREM algorithm for the FR3 robot was implemented in ROS 2 on Ubuntu Linux using C++. The payload used for this experiment was the FR3 hand gripper, whose parameters are known a priori. The trajectory executed by the robot had a duration of 1.4 s, with a sampling time of $T = 0.001\text{ s}$. The experimental results are shown in the figure below:
+The MDREM algorithm for the FR3 robot was implemented in ROS 2 on Ubuntu Linux using C++. The payload used for this experiment was the FR3 hand gripper, whose parameters are known *a priori*. The trajectory executed by the robot had a duration of 1.4 s, with a sampling time of $T = 0.001\text{ s}$. The experimental results are shown in the figure below:
 
 <div align="center">
   <img src="Images/online_param_errors.png" alt="Description" width="500">
-  <p><em>Figure 4. Online estimation of payload inertia parameters under baseline robot model uncertainty. The estimated values rapidly converge to a close, bounded neighborhood of the true payload metrics within [X] seconds of dynamic trajectory execution, demonstrating strong robustness against uncompensated baseline dynamics.</em></p>
+  <p><em>Figure 4. Parameter estimation errors with initial conditions of $\boldsymbol{\hat{\theta}_{\mathrm{L}}}$ set to zero.</em></p>
 </div>
 
-Since the payload parameters are known a priori, the results shown in the previous figure are given as parameter estimation errors.
+Since the payload parameters are known a priori, the results shown in the previous figure are given as parameter estimation errors. From the image, it can be seen that six of them have a good approximation, while only $`\tilde{\theta}_{\mathrm{L}7}`$ does not converge to zero. Also, advantage of the knowledge *a priori* of the values of $`\theta_{\mathrm{L}3} = \theta_{\mathrm{L}6} = \theta_{\mathrm{L}9}=0`$ was taken into account in order to do not mess with their estimation. To do so, some gains in the adaptive law were adjusted and since the initial conditions were set to zero these error parameters remain zero for all time.
+
+Through many experiment executions, it was observed that the estimated parameter $`\hat{\theta}_{\mathrm{L}1}`$ was the more consistent one and closer to the known value *a priori*. Even though the others get approximations, they show more variation from time to time. This could be explained by the uncertainty still present in the inertial parameters of the robot links.
 
 ---
 
