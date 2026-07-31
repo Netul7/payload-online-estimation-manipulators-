@@ -15,12 +15,12 @@ To keep this documentation highly scannable, detailed kinematic and dynamic mode
 <summary><b>1. Kinematics & Denavit-Hartenberg (DH) Parameters</b></summary>
 <br>
 
+Recall that the Geomagic Touch was modeled using a simplified three-degree-of-freedom (3-DoF) configuration. The figure below details this standard Denavit–Hartenberg (DH) geometric setup, and the subsequent table presents the corresponding DH parameters.
+
 <div align="center">
   <img src="../Images/D-H configuration.jpg" alt="Description" width="500">
   <p><em>Figure 1.1. Denavit-Hartenberg configuration of the simplified 3 DoF Geomagic touch.</em></p>
 </div>
-
-The kinematics of the Geomagic Touch were modeled using standard DH conventions. Below are the parameters used to compute the Jacobian and regressor matrices:
 
 | Joint | $a_i$ [m] | $d_i$ [m] | $\alpha_i$ [rad] | $q_i$ [rad] |
 |-------|-----------|-----------|------------------|-------------|
@@ -30,16 +30,54 @@ The kinematics of the Geomagic Touch were modeled using standard DH conventions.
 
 $*$ variable quantity
 
-*(Note: Full derivations of transformation matrices are implemented in `matlab_scripts/init_params.m`)*
 </details>
 
 <details>
 <summary><b>2. Dynamic Model & Geometric Simplifications</b></summary>
 <br>
-To achieve a reduced-order parameter formulation, several geometric simplifications were applied to the manipulator's links. 
+  
+To achieve a reduced-order parameter formulation, several geometric simplifications were applied to the manipulator's links and payload. To see the full model derivation and  assumptions consult the master's thesis here [view thesis](../docs/Master_thesis_Ernesto.pdf)
 
-* **Simulation:** The MDREM algorithm successfully identifies the full parameter vector `pi` (inertia, Coriolis, and gravity terms) within the ideal Simulink environment.
+The dynamic model then is given by
+
+$$\boldsymbol{H}(\boldsymbol{q}) \ddot{\boldsymbol{q}}+\boldsymbol{C}(\boldsymbol{q},\dot{\boldsymbol{q}})\dot{\boldsymbol{q}}+\boldsymbol{D} \dot{\boldsymbol{q}}+\boldsymbol{g}(\boldsymbol{q})=\boldsymbol{\tau}$$
+
+The inertia matrix $\boldsymbol{H}(\boldsymbol{q})$ is now given by
+
+<div align="center">
+  <img src="../Images/equations/Inertia_matrix.png" alt="Description" width="500">
+  <p><em></em></p>
+</div>
+
+<div align="center">
+  <img src="../Images/equations/Coriolis_matrix.png" alt="Description" width="500">
+  <p><em></em></p>
+</div>
+
+<div align="center">
+  <img src="../Images/equations/coeff_fric_mat.png" alt="Description" width="500">
+  <p><em></em></p>
+</div>
+
+<div align="center">
+  <img src="../Images/equations/gravity_vetor.png" alt="Description" width="500">
+  <p><em></em></p>
+</div>
+
+<div align="center">
+  <img src="../Images/equations/parameters_vector.png" alt="Description" width="500">
+  <p><em></em></p>
+</div>
+
+
+* **Simulation:** The MDREM algorithm successfully identifies the full parameter vector $`\theta`$ within the ideal Simulink environment.
 * **Hardware Validation:** In physical deployment, the geometric simplifications introduce structural modeling uncertainty. Consequently, the experimental validation successfully isolates and identifies the **gravitational dynamic parameters**, which dominate the low-speed static behavior of the manipulator.
+</details>
+
+<details>
+<summary><b>3. Linear parameterization</b></summary>
+<br>
+  
 </details>
 
 ---
