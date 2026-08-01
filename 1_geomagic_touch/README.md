@@ -40,35 +40,44 @@ To achieve a reduced-order parameter formulation, several geometric simplificati
 
 The dynamic model then is given by
 
-$$\boldsymbol{H}(\boldsymbol{q}) \ddot{\boldsymbol{q}}+\boldsymbol{C}(\boldsymbol{q},\dot{\boldsymbol{q}})\dot{\boldsymbol{q}}+\boldsymbol{D} \dot{\boldsymbol{q}}+\boldsymbol{g}(\boldsymbol{q})=\boldsymbol{\tau}$$
+$$\boldsymbol{H}(\boldsymbol{q}) \ddot{\boldsymbol{q}}+\boldsymbol{C}(\boldsymbol{q},\dot{\boldsymbol{q}})\dot{\boldsymbol{q}}+\boldsymbol{D} \dot{\boldsymbol{q}}+\boldsymbol{g}(\boldsymbol{q})=\boldsymbol{\tau}.$$
 
-The inertia matrix $\boldsymbol{H}(\boldsymbol{q})$ is now given by
+The model can be expressed in terms of a set of ten parameters, which are the following:
 
 <div align="center">
-  <img src="../Images/equations/Inertia_matrix.png" alt="Description" width="500">
+  <img src="../Images/equations/parameters_vector.png" alt="Description" width="300">
   <p><em></em></p>
 </div>
 
+where $m_i$ is the mass of the *i*-th link for $i = 1,2,3$; $\ell_{ci}$ is the distance from the origin of the frame $O_{x_{i-1}, y_{i-1}, z_{i-1}}$ to the center of mass of the *i*-th body for $i = 2,3$; $`\boldsymbol{I}_{\mathrm{xx}i}`$, $`\boldsymbol{I}_{\mathrm{yy}i}`$ and $`\boldsymbol{I}_{\mathrm{zz}i}`$ are moments of inertia for $i = 1,2,3$ and $`I_2 = I_{yy2}=I_{zz2}`$;  $c_{\text{f}1}$, $c_{\text{f}2}$ and $c_{\text{f}3}$ are the friction coefficients of joints 1, 2, and 3, respectively; and $a_2$ is a Denavit-Hartenberg parameter given in the table above. The inertia matrix $\boldsymbol{H}(\boldsymbol{q})$ is given by
+
 <div align="center">
-  <img src="../Images/equations/Coriolis_matrix.png" alt="Description" width="500">
+  <img src="../Images/equations/Inertia_matrix.png" alt="Description" width="550">
   <p><em></em></p>
 </div>
 
+where $c_2= cos(q_2)$,  $c_3= cos(q_3)$, $c_{23}= cos(q_2 + q_3)$, $s_2= sin(q_2)$, $s_3 = sin(q_3)$ and $s_{23}= sin(q_2+q_3)$. The elements of the matrix $\boldsymbol{C}(\boldsymbol{q}, \dot{\boldsymbol{q}})$ are given by
+
 <div align="center">
-  <img src="../Images/equations/coeff_fric_mat.png" alt="Description" width="500">
+  <img src="../Images/equations/Coriolis_matrix.png" alt="Description" width="750">
   <p><em></em></p>
 </div>
 
+The symmetric positive semidefinite matrix of joint viscous friction coefficients $\boldsymbol{D}$ is described by
+
 <div align="center">
-  <img src="../Images/equations/gravity_vetor.png" alt="Description" width="500">
+  <img src="../Images/equations/coeff_fric_mat.png" alt="Description" width="175">
   <p><em></em></p>
 </div>
 
+and lastly, the gravity torque vector $\boldsymbol{g}(\boldsymbol{q})$ is given by
+
 <div align="center">
-  <img src="../Images/equations/parameters_vector.png" alt="Description" width="500">
+  <img src="../Images/equations/gravity_vetor.png" alt="Description" width="250">
   <p><em></em></p>
 </div>
 
+where $g \approx 9.81  m/s$ is gravity.
 
 * **Simulation:** The MDREM algorithm successfully identifies the full parameter vector $`\theta`$ within the ideal Simulink environment.
 * **Hardware Validation:** In physical deployment, the geometric simplifications introduce structural modeling uncertainty. Consequently, the experimental validation successfully isolates and identifies the **gravitational dynamic parameters**, which dominate the low-speed static behavior of the manipulator.
