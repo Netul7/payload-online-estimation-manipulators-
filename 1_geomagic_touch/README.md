@@ -12,7 +12,7 @@ This module contains the high-fidelity **MATLAB/Simulink simulation environment*
 To keep this documentation highly scannable, detailed kinematic and dynamic modeling assumptions are collapsed below. Click to expand:
 
 <details>
-<summary><b>1. Kinematics & Denavit-Hartenberg (DH) Parameters</b></summary>
+<summary><b>1. Denavit-Hartenberg (DH) Parameters</b></summary>
 <br>
 
 Recall that the Geomagic Touch was modeled using a simplified three-degree-of-freedom (3-DoF) configuration. The figure below details this standard Denavit–Hartenberg (DH) geometric setup, and the subsequent table presents the corresponding DH parameters.
@@ -33,7 +33,7 @@ $*$ variable quantity
 </details>
 
 <details>
-<summary><b>2. Dynamic Model & Geometric Simplifications</b></summary>
+<summary><b>2. Dynamic Model</b></summary>
 <br>
   
 To achieve a reduced-order parameter formulation, several geometric simplifications were applied to the manipulator's links and payload. To see the full model derivation and  assumptions consult the master's thesis here [view thesis](../docs/Master_thesis_Ernesto.pdf)
@@ -86,6 +86,35 @@ where $g \approx 9.81  m/s$ is gravity.
 <details>
 <summary><b>3. Linear parameterization</b></summary>
 <br>
+
+There is a model property that says the left-hand side of the dynamic model can be rewritten as the product of the regressor $\boldsymbol{Y}(\boldsymbol{q}, \dot{\boldsymbol{q}}, \ddot{\boldsymbol{q}}) \in \mathbb{R}^{n \times p}$ by a vector of constant parameters $\boldsymbol{\theta} \in \mathbb{R}^p$, that is,
+
+$$\boldsymbol{H}(\boldsymbol{q}) \ddot{\boldsymbol{q}}+\boldsymbol{C}(\boldsymbol{q}, \dot{\boldsymbol{q}}) \dot{\boldsymbol{q}}+\boldsymbol{D} \dot{\boldsymbol{q}}+\boldsymbol{g}(\boldsymbol{q})=\boldsymbol{Y}(\boldsymbol{q}, \dot{\boldsymbol{q}}, \ddot{\boldsymbol{q}}) \boldsymbol{\theta}.$$
+
+As a result, the elements of the regressor $\boldsymbol{Y}(\boldsymbol{q}, \dot{\boldsymbol{q}}, \ddot{\boldsymbol{q}})$ are then given by 
+
+$`\begin{aligned}
+& y_{11}=c_2^2 \ddot{q}_1-2 c_2 s_2 \dot{q}_1 \dot{q}_2 \\
+& y_{12}=2 c_2 c_{23} \ddot{q}_1-\left(c_2 s_{23}\left(\dot{q}_2+\dot{q}_3\right)+s_2 c_{23} \dot{q}_2\right) \dot{q}_1 \\
+& y_{13}=c_{23}^2 \ddot{q}_1-2 c_{23} s_{23}\left(\dot{q}_2+ \dot{q}_3\right) \dot{q}_1 \\
+& y_{14}=s_{23}^2 \ddot{q}_1+2 c_{23} s_{23}\left(\dot{q}_2+ \dot{q}_3\right) \dot{q}_1 \\
+& y_{15}=0\\
+& y_{16}=\dot{q}_1 \\
+& y_{17}=y_{18}=y_{19}=y_{110}=0 \\
+& y_{21}=\ddot{q}_2+c_2 s_2 \dot{q}_1^2 \\
+& y_{22}=2 c_3 \ddot{q}_2+c_3 \ddot{q}_3+\frac{1}{2}\left(s_2 c_{23}+c_2 s_{23}\right) \dot{q}_1^2-2 s_3 \dot{q}_2 \dot{q}_3-s_3 \dot{q}_3^2 \\
+& y_{23}=s_{23} c_{23} \dot{q}_1^2 \\
+& y_{24}=-s_{23} c_{23} \dot{q}_1^2 \\
+& y_{25}=\ddot{q}_2+\ddot{q}_3 \\
+& y_{26}=0 \\
+& y_{27}=\dot{q}_2 \\
+& y_{28}=0 \\
+& y_{29}=g c_2 \\
+& y_{210}=g c_{23} \\
+& y_{31}=0 \\
+& y_{32}=c_3 \ddot{q}_2+\frac{1}{2} c_2 s_{23} \dot{q}_1^2+s_3 \dot{q}_2^2 \\
+& y_{33}=c_{23} s_{23} \dot{q}_1^2 \\
+\end{aligned}`$
   
 </details>
 
