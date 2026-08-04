@@ -1,7 +1,7 @@
 
 # 🕹️ Geomagic Touch: Simulation & Experimental Validation
 
-This module contains the high-fidelity **MATLAB/Simulink simulation environment** and the **experimental data validation** for the full system parameter identification (robot + payload) using the MDREM algorithm on the Geomagic Touch haptic device.
+This module contains the **MATLAB/Simulink simulation environment** and the **experimental data validation** for the full system parameter identification (robot + payload) using the MDREM algorithm on the Geomagic Touch haptic device.
 
 > ⚠️ **Implementation Note:** Due to laboratory intellectual property guidelines, the low-level C++ control firmware for the physical Geomagic Touch is not publicly shared. However, the complete simulation environment (which mimics the real system dynamics) and the experimental data logs proving hardware convergence are fully provided here.
 
@@ -9,7 +9,7 @@ This module contains the high-fidelity **MATLAB/Simulink simulation environment*
 
 ## ⚙️ Technical Implementation Details
 
-To keep this documentation highly scannable, detailed kinematic and dynamic modeling assumptions are collapsed below. Click to expand:
+To keep this documentation highly scannable, detailed dynamic model and linear parameterization are collapsed below. Click to expand:
 
 <details>
 <summary><b>1. Denavit-Hartenberg (DH) Parameters</b></summary>
