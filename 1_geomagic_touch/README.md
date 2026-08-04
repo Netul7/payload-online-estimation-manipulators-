@@ -118,6 +118,25 @@ $`\begin{aligned}
   
 </details>
 
+<details>
+<summary><b>4.Control law and gains </b></summary>
+<br>
+
+$`\begin{aligned}
+\boldsymbol{\tau} & =\hat{\boldsymbol{H}}(\boldsymbol{q}) \ddot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{C}}(\boldsymbol{q}, \dot{\boldsymbol{q}}) \dot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{D}} \dot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{g}}(\boldsymbol{q})-\boldsymbol{K}_{\mathrm{v}} \underbrace{\text{sign}(\boldsymbol{s})|\boldsymbol{s}|^{{\lambda_{\mathrm{s}} \tanh \left(s^2\right)}}}_{\boldsymbol{\tau}_{\mathrm{s}}}-\boldsymbol{K}_{\mathrm{p}}\|\boldsymbol{s}\| \boldsymbol{s}, \\
+& =\boldsymbol{Y}_{\mathrm{a}} \hat{\boldsymbol{\theta}}-\boldsymbol{K}_{\mathrm{v}} \boldsymbol{\tau}_{\mathrm{s}}-\boldsymbol{K}_{\mathrm{p}}\|\boldsymbol{s}\| \boldsymbol{s},
+\end{aligned}`$
+
+where Property 5 of Section \ref{model properties} and $`\boldsymbol{Y}_{\mathrm{a}}=\boldsymbol{Y}\left(t, \boldsymbol{q}, \dot{\boldsymbol{q}}, \dot{\boldsymbol{q}}_{\mathrm{r}}, \ddot{\boldsymbol{q}}_{\mathrm{r}}\right)`$ has been used for simplicity; $`\boldsymbol{K}_{\text{v}}, \boldsymbol{K}_{\text{p}} \in \mathbb{R}^{n \times n}`$ are diagonal positive definite matrices, and $`\boldsymbol{\lambda}_{\text{s}} \in \mathbb{R}^{n}`$ is a vector of tuning parameters. In addition, the *i*th element $`\tau_{{\mathrm{s}}i}`$ of $`\boldsymbol{\tau}_{\mathrm{s}} \in \mathbb{R}^n`$ is defined as
+
+$$\tau_{\mathrm{s} i}=\text{sign}\left(s_i\right)\left|s_i\right|^{\lambda_{{\mathrm{s}}i}\text{tanh}(s_i^2)}$$
+
+for $i$ = 1, ... , $n$, and with $\lambda_{{\mathrm{s}}i}$ the *i*th positive element of $\boldsymbol{\lambda}_{\mathrm{s}}$, which satisfies
+
+$$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \theta_{\mathrm{s} i}>1.$$
+  
+</details>
+
 ---
 
 ## 📂 Module Structure
