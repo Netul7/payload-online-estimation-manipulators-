@@ -181,7 +181,7 @@ The MDREM algorithm for the FR3 robot was implemented in ROS 2 on Ubuntu Linux u
 
 <div align="center">
   <img src="Images/online_param_errors.png" alt="Description" width="500">
-  <p><em>Figure 4. Parameter estimation errors with initial conditions of $\boldsymbol{\hat{\theta}_{\mathrm{L}}}$ set to zero.</em></p>
+  <p><em>Figure 4. Parameter estimation errors with initial conditions set to zero.</em></p>
 </div>
 
 Since the payload parameters are known a priori, the results shown in the previous figure are given as parameter estimation errors. From the image, it can be seen that six of them have a good approximation, while only $`\tilde{\theta}_{\mathrm{L}7}`$ does not converge to zero. Also, advantage of the knowledge *a priori* of the values of $`\theta_{\mathrm{L}3} = \theta_{\mathrm{L}6} = \theta_{\mathrm{L}9}=0`$ was taken into account in order to do not mess with their estimation. To do so, some gains in the adaptive law were adjusted and since the initial conditions were set to zero these error parameters remain zero for all time.
@@ -194,10 +194,10 @@ Through many experiment executions, it was observed that the estimated parameter
 
 ```text
 ├── docs/                        # Mathematical derivations, block diagrams, and thesis summary
-├── 1_geomagic_touch_sim/        # MATLAB/Simulink models and experimental result validation
-│   ├── simulink_models/         # .slx files for manipulator and estimator
-│   ├── matlab_scripts/          # Initialization, regressor computation, and plotting (.m)
-│   └── experimental_results/    # Lab data comparisons (CSV/Mat)
+├── 1_geomagic_touch/        # MATLAB/Simulink models and experimental result validation
+│   ├── simulink_model/         # .slx files for manipulator and estimator
+│   ├── matlab_scripts/          # Initialization, and plotting (.m)
+│   └── experimental_results/    # Experimental lab data (CSV/Mat)
 └── 2_franka_research_hardware/  # C++ implementation for Franka Research 3
     ├── src/                     # Core estimation algorithm and control loops
     ├── include/                 # Header files and matrix definitions
