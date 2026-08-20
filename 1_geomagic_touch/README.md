@@ -142,7 +142,7 @@ $$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \t
 ## 📂 Module Structure
 
 * `/matlab_scripts/`: Contains initialization scripts (`init_params.m`), MDREM filter definitions, and plotting utilities.
-* `/simulink_models/`: Contains the `.slx` block diagrams for the rigid body plant, trajectory generator, and the MDREM estimator.
+* `/simulink_model/`: Contains the `.slx` block diagrams for the rigid body plant, and the MDREM estimator.
 * `/experimental_results/`: Contains `.csv`/`.mat` datasets collected from the physical lab trials and scripts to plot real-world parameter convergence.
 
 ---
@@ -151,8 +151,8 @@ $$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \t
 
 To test the estimation algorithm in simulation:
 
-1. **Prerequisites:** Ensure you have MATLAB (R20XXx or newer) and the Control System Toolbox installed.
+1. **Prerequisites:** Ensure you have MATLAB (R2023b or newer) and the symbolic math toolbox installed.
 2. **Initialize Workspace:** 
    Navigate to `/matlab_scripts/` and run the initialization script to load kinematic parameters, dynamic assumptions, and MDREM gains:
    ```matlab
-   run('init_params.m')
+   run('startup.m')
