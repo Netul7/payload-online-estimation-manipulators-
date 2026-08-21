@@ -141,7 +141,7 @@ $$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \t
 
 ## 📂 Module Structure
 
-* `/matlab_scripts/`: Contains initialization scripts (`init_params.m`), MDREM filter definitions, and plotting utilities.
+* `/matlab_scripts/`: Contains initialization scripts (`datosGT.m`), MDREM filter definitions, and plotting utilities.
 * `/simulink_model/`: Contains the `.slx` block diagrams for the rigid body plant, and the MDREM estimator.
 * `/experimental_results/`: Contains `.csv`/`.mat` datasets collected from the physical lab trials and scripts to plot real-world parameter convergence.
 
@@ -152,7 +152,8 @@ $$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \t
 To test the estimation algorithm in simulation:
 
 1. **Prerequisites:** Ensure you have MATLAB (R2023b or newer) and the symbolic math toolbox installed.
-2. **Initialize Workspace:** 
-   Navigate to `/matlab_scripts/` and run the initialization script to load kinematic parameters, dynamic assumptions, and MDREM gains:
-   ```matlab
-   run('startup.m')
+2. **Initialize Workspace:**
+   Navigate to `1_geomagic_touch/` and run `startup.m`, wait a little for the simulink model to open and then you'll be ready to run the simulation. If you want run the simulation one more time, you'll need to reset the simulation data, you can do this by run `startup.m` again or by navigating to `1_geomagic_touch/matlab_scripts` and run `datosGT.m`. You can visualize the estimated parameter errors, and some other data, in the scopes in the simulink model or you can plot it by running the `plots.m` in `1_geomagic_touch/matlab_scripts`.
+
+## View Hardware Results
+To view the convergence plots from the real physical robot, run `plot_experimental_data.m` in the `/experimental_results/` folder.
