@@ -143,7 +143,7 @@ $$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \t
 
 * `/matlab_scripts/`: Contains initialization scripts (`datosGT.m`), MDREM filter definitions, and plotting utilities.
 * `/simulink_model/`: Contains the `.slx` block diagrams for the rigid body plant, and the MDREM estimator.
-* `/experimental_results/`: Contains `.csv`/`.mat` datasets collected from the physical lab trials and scripts to plot real-world parameter convergence.
+* `/experimental_results/`: Contains `.m` datasets collected from the physical lab trials and scripts to plot real-world estimated parameters.
 
 ---
 
@@ -151,9 +151,21 @@ $$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \t
 
 To test the estimation algorithm in simulation:
 
-1. **Prerequisites:** Ensure you have MATLAB (R2023b or newer) and the symbolic math toolbox installed.
-2. **Initialize Workspace:**
-   Navigate to `1_geomagic_touch/` and run `startup.m`, wait a little for the simulink model to open and then you'll be ready to run the simulation. If you want run the simulation one more time, you'll need to reset the simulation data, you can do this by run `startup.m` again or by navigating to `1_geomagic_touch/matlab_scripts` and run `datosGT.m`. You can visualize the estimated parameter errors, and some other data, in the scopes in the simulink model or you can plot it by running the `plots.m` in `1_geomagic_touch/matlab_scripts`.
+1. **Prerequisites:** Ensure you have MATLAB (R2023b or newer) and the Symbolic Math Toolbox installed.
+2. **Initialize Workspace & Run:** 
+   Navigate to the `1_geomagic_touch/` directory and execute `startup.m`. This script will automatically configure the workspace and open the Simulink model. Once it loads, simply click **Run**.
+3. **Resetting the Simulation:** 
+   If you want to run the simulation again, you must reset the workspace data. You can do this by executing `startup.m` again, or by running `datosGT.m` located in the `/matlab_scripts/` folder.
+4. **Visualizing Results:** 
+   You can observe the estimated parameter errors and tracking data directly through the Simulink Scopes. Alternatively, for clean MATLAB figures, run `plots.m` inside the `/matlab_scripts/` directory.
 
-## View Hardware Results
-To view the convergence plots from the real physical robot, run `plot_experimental_data.m` in the `/experimental_results/` folder.
+---
+
+## 📊 View Hardware Results
+
+To analyze the experimental data collected from the physical robot, navigate to the `/experimental_results/` folder and execute `plot_experimental_data.m`. 
+
+This script will generate three key figures:
+* **Regressor Determinants:** A comparison between the squared determinant of the standard extended regressor and the MDREM extended regressor.
+* **Parameter Convergence:** The real-time estimation plots of the physical parameters.
+* **Joint Trajectories:** The robot's angular positions during the experimental execution. 
