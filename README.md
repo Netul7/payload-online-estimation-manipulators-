@@ -194,11 +194,11 @@ Through many experiment executions, it was observed that the estimated parameter
 
 ```text
 ├── docs/                        # Mathematical derivations, block diagrams, and thesis summary
+├── Images/                      #Images used in the README files in the repository
 ├── 1_geomagic_touch/        # MATLAB/Simulink models and experimental result validation
 │   ├── simulink_model/         # .slx files for manipulator and estimator
 │   ├── matlab_scripts/          # Initialization, and plotting (.m)
-│   └── experimental_results/    # Experimental lab data (CSV/Mat)
+│   └── experimental_results/    # Experimental lab data
 └── 2_franka_research_hardware/  # C++ implementation for Franka Research 3
-    ├── src/                     # Core estimation algorithm and control loops
-    ├── include/                 # Header files and matrix definitions
-    └── config/                  # Estimator gains and trajectory parameters
+    ├── mdrem_algorithm/         # Core estimation algorithm and control loops
+    └── experimental_results/    # Post-processing folder for experimental data analysis.
