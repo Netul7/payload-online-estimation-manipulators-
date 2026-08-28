@@ -66,31 +66,64 @@ The known robot dynamic parameters (used to compensate the baseline internal dyn
 
 ## 📂 Software Architecture & Structure
 
-The codebase is structured following standard C++ / [ROS 2] conventions for robotics applications:
+The codebase is organized into two main components: a standard **ROS 2 (C++) package** for real-time execution, and a post-processing folder for experimental data analysis.
 
-* `/src/`: Core implementation of the MDREM algorithm, dynamic regressor computation, and hardware control loop.
-* `/include/`: Header files, mathematical utilities (e.g., Eigen matrix definitions), and class declarations.
-* `/config/`: YAML/JSON files containing estimator gains (adaptation rates, filter constants) and trajectory definitions.
-* `/experimental_data/`: Sample `.csv` logs from physical payload lifting trials used to generate the convergence plots.
+* `/mdrem_algorithm/` **(ROS 2 Package)**
+  * `/src/`: Core C++ implementation of the MDREM algorithm, dynamic regressor computations, and the ROS 2 node managing the hardware loop.
+  * `/include/`: C++ header files, class declarations, and mathematical utilities (e.g., Eigen matrix definitions).
+  * `CMakeLists.txt` & `package.xml`: Build system configurations and package dependencies for the `colcon` workspace.
+
+* `/experimental_results/` **(Data Analysis)**
+  * `*.txt`: Raw dataset logs recorded during the physical payload lifting trials on the FR3 hardware.
+  * `plot_fr3_data.m`: MATLAB script designed to parse the `.txt` logs and generate the parameter convergence and error plots.
 
 ---
 
-## 🚀 Getting Started (Building from Source)
+## 🚀 Getting Started 
 
-### Prerequisites
-* Linux Ubuntu [20.04 / 22.04]
-* C++17 Compiler
-* **Eigen 3** (for fast matrix algebra)
-* **[libfranka / ROS 2 Humble/Galactic]** (Middleware and hardware interface)
+### 1. Prerequisites (ROS 2 Environment)
+The real-time controller is built as a native ROS 2 package. To compile and run it, you need the following standard environment:
+* **OS:** Linux Ubuntu 22.04 (Jammy Jellyfish)
+* **Middleware:** ROS 2 Humble
+* **Compiler:** C++17 (Standard for ROS 2 Humble)
+* **Libraries:** Eigen 3 (for fast matrix algebra)
 
-### Compilation
-To build the estimation node and control loop:
+### 2. Compilation (Building from Source)
+Ensure you have sourced your ROS 2 environment. Clone this repository into the `src` folder of your general ROS 2 workspace (not to be confused with the package's internal `src` folder). 
+
+Assuming your workspace is named `~/franka_ros2_ws` (you can replace this with your own workspace name):
 
 ```bash
-# 1. Clone the repository and navigate to this module
-cd 2_franka_research_hardware
+# 1. Source your ROS 2 Humble installation
+source /opt/ros/humble/setup.bash
 
-# 2. Build the project using CMake [or colcon build if using ROS]
-mkdir build && cd build
-cmake ..
-make -j4
+# 2. Navigate to your ROS 2 workspace root
+cd ~/franka_ros2_ws
+
+# 3. Build the specific package
+colcon build --packages-select mdrem_algorithm
+
+# 4. Source the local workspace setup
+source install/setup.bash
+```
+
+### 3. Execution & Trajectory Planning
+> **Note on Trajectory Generation:** In the experimental setup, the dynamic excitation trajectories were generated using **MoveIt 2**. 
+
+To perform the online parameter estimation, the estimator node must be running concurrently while a trajectory is executed on the manipulator.
+
+```bash
+# 1. Source the workspace
+source install/setup.bash
+
+# 2. Run the MDREM estimator node
+ros2 run mdrem_algorithm mdrem_node
+```
+*Once the node is actively running, you can execute your desired excitation trajectory (via MoveIt or your preferred trajectory generator), and the node will compute the payload parameters in real-time.*
+
+### 4. View Experimental Results (MATLAB)
+Since testing on physical FR3 hardware requires strict laboratory safety protocols and the specific robot setup, you can verify the algorithm's performance directly using the recorded datasets provided in this repository.
+
+1. Open MATLAB and navigate to the `/experimental_results/` directory.
+2. Run the `plot_fr3_data.m` script. 
+3. The script will parse the raw `.txt` logs and generate the convergence plots for the payload mass, center of mass, and inertia tensor.
