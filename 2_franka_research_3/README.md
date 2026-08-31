@@ -57,10 +57,59 @@ The dynamic model of the FR3 robot is derived from the Newton-Euler (NE) formula
 <details>
 <summary><b>3. Baseline Uncertainty & Bounded Convergence</b></summary>
 <br>
+  
 A critical highlight of this experimental deployment is its robustness against unmodeled baseline dynamics. 
 
-The known robot dynamic parameters (used to compensate the baseline internal dynamics) were derived from literature reported for the predecessor model, the **Franka Emika Panda**. Despite the physical and parametric discrepancies between the Panda and the FR3, the MDREM estimator did not diverge. Instead, it successfully rejected the structural uncertainty, driving the payload estimation error to a **bounded, practical neighborhood** of the true values.
+The known robot dynamic parameters (used to compensate the baseline internal dynamics) were derived from literature reported for the predecessor model, the **Franka Emika Panda**. Despite the physical and parametric discrepancies between the Panda and the FR3, the MDREM estimator did not diverge. Instead, except for one estimated parameter, it successfully rejected the structural uncertainty, driving the payload estimation error to a **bounded, practical neighborhood** of the true values.
+
+The set of parameters used in experimentation for the FR3 robot are reported in [Soto et al. (2024)](https://www.researchgate.net/publication/386429138_Nonlinear_Parameter_Identification_of_the_Franka_Emika_PANDA_Robot_A_Comparative_Analysis_of_Friction_Models), and they're shown in the following table:
+
+| $\theta$              | Link 1   | Link 2   | Link 3   | Link 4   | Link 5   | Link 6   | Link 7   |
+|-----------------------|----------|----------|----------|----------|----------|----------|----------|
+| $m$ (kg)              | 4.75     | 0.9918   | 3.2832   | 3.5858   | 1.3628   | 1.741    | 0.5158   |
+| $c_x$ (m)             | -3.48e-08| 0.0396   | 0.0345   | -0.0474  | -0.0016  | 0.0733   | -0.0015  |
+| $c_y$ (m)             | -3.48e-08| -0.1222  | 0.0351   | 0.1385   | 0.0307   | -0.0205  | 0.004    |
+| $c_z$ (m)             | -0.175   | -0.0096  | -0.0999  | 0.0327   | -0.125   | -0.0262  | 0.0638   |
+| $I_{xx}$ (kg·m²)     | 0.5      | 0.0752   | 0.0528   | 0.0285   | 0.0669   | 0.0066   | 0.0005   |
+| $I_{yy}$ (kg·m²)     | 0.5      | 0.0297   | 0.0102   | 0.0064   | 0.0534   | 0.0053   | 0.0019   |
+| $I_{zz}$ (kg·m²)     | 0        | 0.016    | 0.0183   | 0.0486   | 0.0022   | 0.0006   | 0.0001   |
+| $I_{xy}$ (kg·m²)     | 7.72e-14 | 0.0098   | -0.0195  | 0.0072   | -0.0039  | -0.0033  | -0.0009  |
+| $I_{xz}$ (kg·m²)     | -8.56e-10| -0.02    | -0.0298  | -0.0241  | -0.0112  | -0.0002  | -0.0002  |
+| $I_{yz}$ (kg·m²)     | 8.55e-10 | -0.0201  | 0.0131   | 0.0053   | 0.0048   | 0.0015   | 0.0005   |
+
+Table 3.1. Estimated parameters of the Franka Emika Panda robot used in the experiment.
+
 </details>
+
+<details>
+<summary><b>4. Experiment payload</b></summary>
+<br>
+  
+The experiment payload used in this used was the hand gripper of the Franka Research 3 robot and it is shown in the image below. The payload parameters are known a priori and therefore, its corresponding parameters are shown in the table below. They were obtained from [Chapter 6, Tool Compensation for a Medical Cobot-Assistant](https://link.springer.com/chapter/10.1007/978-3-030-95750-6_6).
+
+<div align="center">
+  <img src="../Images/Franka_Hand.png" alt="Description" width="500">
+  <p><em>Figure 4.1. Robot's payload: Hand gripper of the FR3 robot.</em></p>
+</div>
+
+| $\theta_L$          | Value       |
+|---------------------|-------------|
+| $m$ (kg)            | 0.730       |
+| $c_x$ (m)           | -0.010      |
+| $c_y$ (m)           | 0           |
+| $c_z$ (m)           | 0.030       |
+| $I_{xx}$ (kg·$m^2$) | 0.001       |
+| $I_{yy}$ (kg·$m^2$) | 0           |
+| $I_{zz}$ (kg·$m^2$) | 0           |
+| $I_{xy}$ (kg·$m^2$) | 0.0025      |
+| $I_{xz}$ (kg·$m^2$) | 0           |
+| $I_{yz}$ (kg·$m^2$) | 0.0017      |
+
+Table 4.1. Inertial parameters of the FR3 hand gripper.
+
+</details>
+
+There are more other details particular to the implementation for the FR3 robot. If you wan to know more, please consult my [*master's thesis*](https://tesiunamdocumentos.dgb.unam.mx/ptd2026/ene_mar/0881038/Index.html).
 
 ---
 
