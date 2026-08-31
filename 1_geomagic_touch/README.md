@@ -137,6 +137,31 @@ $$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \t
   
 </details>
 
+<details>
+<summary><b>4.Experiment payload </b></summary>
+<br>
+
+<table align="center">
+  <tr>
+    <td align="center">
+      <img src="../Images/GT_payload.jpg" alt="(a) Payload" width="250">
+      <br><em>(a) Payload</em>
+    </td>
+    <td align="center">
+      <img src="../Images/End-effector_adaptation.jpg" alt="(b) End-effector adaptation" width="250">
+      <br><em>(b) End-effector adaptation for the payload</em>
+    </td>
+    <td align="center">
+      <img src="../Images/Payload_mounted.jpg" alt="(c) Mounted payload" width="250">
+      <br><em>(c) Mounted payload</em>
+    </td>
+  </tr>
+</table>
+
+<p align="center"><strong>Figure 4.1:</strong> Payload used in experimentation.</p>
+  
+</details>
+
 ---
 
 ## 📂 Module Structure
