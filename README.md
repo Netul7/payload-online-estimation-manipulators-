@@ -103,6 +103,26 @@ $$
 \end{cases}
 $$
 
+### 4. Some tuning rules
+
+To tune the MDREM parameters, some tuning rules are given in the original MDREM paper, [Arteaga (2024)](https://onlinelibrary.wiley.com/doi/abs/10.1002/rnc.7106) in Section 4.1. These are summarized as follows:
+
+- Choose $\lambda_{\varphi}$ according to your own experience but small enough to filter high frequencies.
+- Choose the values $b_{j}$ for $j = 2, \ \dots \ , \tilde{n}$ small enough to work as pure time delays at low frequencies.
+- Choose the values $a_{j}$ for $j = 2, \ \dots \ , \tilde{n}$ to change the magnitude of $\phi^2$. The larger the coefficients $a_j$ the larger $\phi^2$ becomes and vise versa.
+
+Regarding $\eta_{\mathrm{m}}$, it is a good idea first to see the behavior of $\phi^2$ and based on it adjust its value depending on the desired performance and duration of $\phi_{\mathrm{m}}$. Recall that the values of $a_j$ and $b_j$ (for $j = 2, \ \dots \ , \tilde{n}$) also affect the shape of $\phi^2$ so that in conjunction with $\eta_{\mathrm{m}}$ they might be tuned together. In general, this is done by trial and error.
+
+For the adaptive law the corresponding gains in the present work are tuned following these rules:
+
+- The gains $\boldsymbol{\lambda}_{\theta}$  are tuned according to
+
+$$
+{\lambda_{\theta i}\text{tanh}(1)} = \beta_{\theta i} > 1, \quad \lambda_{\theta i} > \frac{\alpha_{\theta i}}{\text{tanh}(1)}, \quad \alpha_{\theta i}>1,
+$$
+
+- The elements $\gamma_i$ for $i = 1, \ \dots \ , \ p$ are set very small first and then gradually increase or decrease until the desired performance is achieved.
+
 To see more details about the MDREM algorithm and its specific implementation for each robot, you can consult my master's thesis [*Master's Thesis*](https://tesiunamdocumentos.dgb.unam.mx/ptd2026/ene_mar/0881038/Index.html).
 
 ---
