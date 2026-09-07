@@ -141,6 +141,10 @@ $$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \t
 <summary><b>4.Experiment payload </b></summary>
 <br>
 
+The payload used in the experiment was a rectangular prism of dimensions 30 x
+30 x 100 mm. It was printed with a 3D printer, model ZORTRAX M200 PLUS.
+The figure below shows some pictures of the payload.
+
 <table align="center">
   <tr>
     <td align="center">
@@ -159,6 +163,9 @@ $$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \t
 </table>
 
 <p align="center"><strong>Figure 4.1:</strong> Payload used in experimentation.</p>
+
+In Figure (a), it can be seen the actual printed payload. However, it can be seen that one face is not completely
+flat. It is curved to the top end of the face. This is due to an error at the end of the printing process. Regardless of this printing error, this piece was used in the experiment. The piece has a weight of 90 g. Figure (b) shows the adaptation made to the end of the third link to hold the payload. It was taken advantage of previous modifications made by former student fellows. The black piece is inserted into the plug connector on the basis of another similar piece. This piece also has a small rail on which the payload is mounted. Lastly, Figure (c) shows the payload mounted on the third link.
   
 </details>
 
