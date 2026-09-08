@@ -1,5 +1,8 @@
 # 🤖 Online Payload Parameter Estimation for Robotic Manipulators
 
+> [!NOTE]
+> This repository contains mathematical equations rendered using LaTeX. GitHub's mobile app currently does not support LaTeX rendering. For the correct display of all equations, we recommend viewing this repository on a **desktop browser**.
+
 ![MATLAB](https://img.shields.io/badge/MATLAB-R2023a-orange?style=flat-square&logo=mathworks)
 ![Simulink](https://img.shields.io/badge/Simulink-Simulation-blue?style=flat-square&logo=mathworks)
 ![C++](https://img.shields.io/badge/C++-17-00599C?style=flat-square&logo=c%2B%2B)
