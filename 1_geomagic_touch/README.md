@@ -166,7 +166,7 @@ The tuning gains used to compute the extended regressor $\boldsymbol{Y}_{\text{f
 | $\phi_d$            | 0.2                      |
 | $\eta_m$            | $1 \times 10^{-9}$       |
 
-**Table 5.2:** Gains of the adaptive law (3.10) for experimentation.
+**Table 5.2:** Gains of the adaptive law for experimentation.
 
 | Gain                | Value                                                           |
 |---------------------|-----------------------------------------------------------------|
