@@ -107,7 +107,30 @@ The experiment payload used in this used was the hand gripper of the Franka Rese
 
 Table 4.1. Inertial parameters of the FR3 hand gripper.
 
+</details><details>
+<summary><b>5. Tuning and gains </b></summary>
+<br>
+
+**Table 5.1:** MDREM gains for online estimation experiment.
+
+| Gain                | Value                    |
+|---------------------|--------------------------|
+| $\lambda_\varphi$   | 15                       |
+| $a_2 = a_3$         | 0.1                      |
+| $b_2, b_3$          | $\lbrace 0.3, 0.7 \rbrace$ |
+| $\phi_d$            | 0.02                     |
+| $\eta_m$            | $2.5 \times 10^{-8}$     |
+
+**Table 5.2:** Gains of the adaptive law for the online estimation experiment.
+
+| Gain                | Value                                                                                                |
+|---------------------|------------------------------------------------------------------------------------------------------|
+| $\Gamma$            | $\text{diag } \lbrace 3.95, 0.0835, 0.0, 0.1178, 0.0073, 0.0, 0.01, 0.014, 0.0, 0.01 \rbrace$       |
+| $\lambda_\theta$    | $[2 \; 2 \; 2 \; 2 \; 2 \; 2 \; 2 \; 2 \; 2 \; 2]^\intercal$                                         |
+  
 </details>
+
+
 
 There are more other details particular to the implementation for the FR3 robot. If you wan to know more, please consult my [*master's thesis*](https://tesiunamdocumentos.dgb.unam.mx/ptd2026/ene_mar/0881038/Index.html).
 
