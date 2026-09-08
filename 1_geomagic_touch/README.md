@@ -154,7 +154,7 @@ flat. It is curved to the top end of the face. This is due to an error at the en
 <summary><b>5. Tuning and gains </b></summary>
 <br>
 
-The tuning gains used to compute the extended regressor $\boldsymbol{Y}_{\text{f}}$, along with the remaining MDREM parameters and the adaptive law gains, are listed in the tables below. As previously described, the same tuning guidelines were followed to adjust the adaptive gains for experimental validation.
+The tuning gains used to compute the extended regressor $\boldsymbol{Y}_{\text{f}}$, along with the remaining MDREM parameters and the adaptive law gains, are listed in the tables below. As previously described, the same tuning guidelines were followed to adjust the adaptive gains for experimental validation. In addition, the sample time for this experiment was $T=0.002$ s.
 
 **Table 5.1:** MDREM gains for experimentation.
 
@@ -174,25 +174,8 @@ The tuning gains used to compute the extended regressor $\boldsymbol{Y}_{\text{f
 | $\lambda_\theta$    | $[3 \; 3 \; 3 \; 3 \; 3 \; 3 \; 3 \; 3 \; 3 \; 3]^\intercal$    |
 
 In contrast to simulation, in experimentation, the dynamics of the actual robot might not be perfectly described by the obtained model, which might make the tuning process more difficult. Making $\phi_d$ large could mathematically achieve parameter convergence faster; nevertheless, in case of modeling uncertainty the parameter error is scaled by this parameter, as seen in equation $`e_{\theta i}=\phi_{\mathrm{m}}\left(\phi_{\mathrm{m}} \hat{\theta}_i-\tau_{\epsilon i}\right)=\phi_{\mathrm{m}}^2 \tilde{\theta}_i`$, since $\phi_{\mathrm{m}}^2$ becomes $\phi_{\mathrm{d}}^2$ when $\phi^2 \geq \eta_{\mathrm{m}}$. Therefore, the convergence accuracy can be degraded, so it is recommended to be relatively small. Again, the overall tuning process is complemented and completed by trial and error.
-  
-</details>
 
-<details>
-<summary><b>6. Control law and gains </b></summary>
-<br>
-
-$`\begin{aligned}
-\boldsymbol{\tau} & =\hat{\boldsymbol{H}}(\boldsymbol{q}) \ddot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{C}}(\boldsymbol{q}, \dot{\boldsymbol{q}}) \dot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{D}} \dot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{g}}(\boldsymbol{q})-\boldsymbol{K}_{\mathrm{v}} \underbrace{\text{sign}(\boldsymbol{s})|\boldsymbol{s}|^{{\lambda_{\mathrm{s}} \tanh \left(s^2\right)}}}_{\boldsymbol{\tau}_{\mathrm{s}}}-\boldsymbol{K}_{\mathrm{p}}\|\boldsymbol{s}\| \boldsymbol{s}, \\
-& =\boldsymbol{Y}_{\mathrm{a}} \hat{\boldsymbol{\theta}}-\boldsymbol{K}_{\mathrm{v}} \boldsymbol{\tau}_{\mathrm{s}}-\boldsymbol{K}_{\mathrm{p}}\|\boldsymbol{s}\| \boldsymbol{s},
-\end{aligned}`$
-
-where Property 5 of Section \ref{model properties} and $`\boldsymbol{Y}_{\mathrm{a}}=\boldsymbol{Y}\left(t, \boldsymbol{q}, \dot{\boldsymbol{q}}, \dot{\boldsymbol{q}}_{\mathrm{r}}, \ddot{\boldsymbol{q}}_{\mathrm{r}}\right)`$ has been used for simplicity; $`\boldsymbol{K}_{\text{v}}, \boldsymbol{K}_{\text{p}} \in \mathbb{R}^{n \times n}`$ are diagonal positive definite matrices, and $`\boldsymbol{\lambda}_{\text{s}} \in \mathbb{R}^{n}`$ is a vector of tuning parameters. In addition, the *i*th element $`\tau_{{\mathrm{s}}i}`$ of $`\boldsymbol{\tau}_{\mathrm{s}} \in \mathbb{R}^n`$ is defined as
-
-$$\tau_{\mathrm{s} i}=\text{sign}\left(s_i\right)\left|s_i\right|^{\lambda_{{\mathrm{s}}i}\text{tanh}(s_i^2)}$$
-
-for $i$ = 1, ... , $n$, and with $\lambda_{{\mathrm{s}}i}$ the *i*th positive element of $\boldsymbol{\lambda}_{\mathrm{s}}$, which satisfies
-
-$$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \theta_{\mathrm{s} i}>1.$$
+Full details regarding the experimental control law are omitted here for conciseness and can be found in Section 3.4 of [*my master's thesis*](https://tesiunamdocumentos.dgb.unam.mx/ptd2026/ene_mar/0881038/Index.html).
   
 </details>
 
