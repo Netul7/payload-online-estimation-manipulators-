@@ -111,6 +111,8 @@ Table 4.1. Inertial parameters of the FR3 hand gripper.
 <summary><b>5. Tuning and gains </b></summary>
 <br>
 
+For the FR3 robot implementation of the MDREM scheme, a Singular Value Decomposition (SVD)-based approximation is applied to the regressor matrix. The truncation index $r$ acts as a tuning parameter and was set to $r = 4$ for this experiment; details are provided in Section 5.3.2 of [*my thesis*](https://tesiunamdocumentos.dgb.unam.mx/ptd2026/ene_mar/0881038/Index.html). All other MDREM parameters and adaptive law gains are listed in the tables below. The experimental sampling period was $T = 0.001\text{ s}$.
+
 **Table 5.1:** MDREM gains for online estimation experiment.
 
 | Gain                | Value                    |
@@ -127,12 +129,13 @@ Table 4.1. Inertial parameters of the FR3 hand gripper.
 |---------------------|------------------------------------------------------------------------------------------------------|
 | $\Gamma$            | $\text{diag } \lbrace 3.95, 0.0835, 0.0, 0.1178, 0.0073, 0.0, 0.01, 0.014, 0.0, 0.01 \rbrace$       |
 | $\lambda_\theta$    | $[2 \; 2 \; 2 \; 2 \; 2 \; 2 \; 2 \; 2 \; 2 \; 2]^\intercal$                                         |
-  
+
+Regarding the control scheme, no custom control law was implemented; instead, all experiments were conducted using the built-in controllers provided by the robot’s software interface. Specifically, the standard joint position controller was employed, which directly tracks the commanded joint positions $\boldsymbol{q}_{\text{d}}$.
+
 </details>
 
+To see more details about the particular implementation of the MDREM scheme for the FR3 robot, you can consult my master's thesis [*Master's Thesis*](https://tesiunamdocumentos.dgb.unam.mx/ptd2026/ene_mar/0881038/Index.html).
 
-
-There are more other details particular to the implementation for the FR3 robot. If you wan to know more, please consult my [*master's thesis*](https://tesiunamdocumentos.dgb.unam.mx/ptd2026/ene_mar/0881038/Index.html).
 
 ---
 
