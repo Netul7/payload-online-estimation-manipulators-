@@ -119,26 +119,7 @@ $`\begin{aligned}
 </details>
 
 <details>
-<summary><b>4.Control law and gains </b></summary>
-<br>
-
-$`\begin{aligned}
-\boldsymbol{\tau} & =\hat{\boldsymbol{H}}(\boldsymbol{q}) \ddot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{C}}(\boldsymbol{q}, \dot{\boldsymbol{q}}) \dot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{D}} \dot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{g}}(\boldsymbol{q})-\boldsymbol{K}_{\mathrm{v}} \underbrace{\text{sign}(\boldsymbol{s})|\boldsymbol{s}|^{{\lambda_{\mathrm{s}} \tanh \left(s^2\right)}}}_{\boldsymbol{\tau}_{\mathrm{s}}}-\boldsymbol{K}_{\mathrm{p}}\|\boldsymbol{s}\| \boldsymbol{s}, \\
-& =\boldsymbol{Y}_{\mathrm{a}} \hat{\boldsymbol{\theta}}-\boldsymbol{K}_{\mathrm{v}} \boldsymbol{\tau}_{\mathrm{s}}-\boldsymbol{K}_{\mathrm{p}}\|\boldsymbol{s}\| \boldsymbol{s},
-\end{aligned}`$
-
-where Property 5 of Section \ref{model properties} and $`\boldsymbol{Y}_{\mathrm{a}}=\boldsymbol{Y}\left(t, \boldsymbol{q}, \dot{\boldsymbol{q}}, \dot{\boldsymbol{q}}_{\mathrm{r}}, \ddot{\boldsymbol{q}}_{\mathrm{r}}\right)`$ has been used for simplicity; $`\boldsymbol{K}_{\text{v}}, \boldsymbol{K}_{\text{p}} \in \mathbb{R}^{n \times n}`$ are diagonal positive definite matrices, and $`\boldsymbol{\lambda}_{\text{s}} \in \mathbb{R}^{n}`$ is a vector of tuning parameters. In addition, the *i*th element $`\tau_{{\mathrm{s}}i}`$ of $`\boldsymbol{\tau}_{\mathrm{s}} \in \mathbb{R}^n`$ is defined as
-
-$$\tau_{\mathrm{s} i}=\text{sign}\left(s_i\right)\left|s_i\right|^{\lambda_{{\mathrm{s}}i}\text{tanh}(s_i^2)}$$
-
-for $i$ = 1, ... , $n$, and with $\lambda_{{\mathrm{s}}i}$ the *i*th positive element of $\boldsymbol{\lambda}_{\mathrm{s}}$, which satisfies
-
-$$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \theta_{\mathrm{s} i}>1.$$
-  
-</details>
-
-<details>
-<summary><b>4.Experiment payload </b></summary>
+<summary><b>4. Experiment payload </b></summary>
 <br>
 
 The payload used in the experiment was a rectangular prism of dimensions 30 x
@@ -166,6 +147,52 @@ The figure below shows some pictures of the payload.
 
 In Figure (a), it can be seen the actual printed payload. However, it can be seen that one face is not completely
 flat. It is curved to the top end of the face. This is due to an error at the end of the printing process. Regardless of this printing error, this piece was used in the experiment. The piece has a weight of 90 g. Figure (b) shows the adaptation made to the end of the third link to hold the payload. It was taken advantage of previous modifications made by former student fellows. The black piece is inserted into the plug connector on the basis of another similar piece. This piece also has a small rail on which the payload is mounted. Lastly, Figure (c) shows the payload mounted on the third link.
+  
+</details>
+
+<details>
+<summary><b>5. Tuning and gains </b></summary>
+<br>
+
+The tuning gains used to compute the extended regressor $\boldsymbol{Y}_{\text{f}}$, along with the remaining MDREM parameters and the adaptive law gains, are listed in the tables below. As previously described, the same tuning guidelines were followed to adjust the adaptive gains for experimental validation.
+
+**Table 5.1:** MDREM gains for experimentation.
+
+| Gain                | Value                    |
+|---------------------|--------------------------|
+| $\lambda_\phi$      | 1                        |
+| $a_2 = a_3 = a_4$   | 6                        |
+| $b_2, b_3, b_4$     | $\lbrace1.2, 4.4, 4.8\rbrace$      |
+| $\phi_d$            | 0.2                      |
+| $\eta_m$            | $1 \times 10^{-9}$       |
+
+**Table 5.2:** Gains of the adaptive law (3.10) for experimentation.
+
+| Gain                | Value                                                           |
+|---------------------|-----------------------------------------------------------------|
+| $\Gamma$            | $\text{diag } \lbrace 0.4, 0.6, 0.45, 0.2, 0.05, 0.1, 0.25, 0.05, 0.052, 0.13 \rbrace$ |
+| $\lambda_\theta$    | $[3 \; 3 \; 3 \; 3 \; 3 \; 3 \; 3 \; 3 \; 3 \; 3]^\intercal$    |
+
+In contrast to simulation, in experimentation, the dynamics of the actual robot might not be perfectly described by the obtained model, which might make the tuning process more difficult. Making $\phi_d$ large could mathematically achieve parameter convergence faster; nevertheless, in case of modeling uncertainty the parameter error is scaled by this parameter, as seen in equation $`e_{\theta i}=\phi_{\mathrm{m}}\left(\phi_{\mathrm{m}} \hat{\theta}_i-\tau_{\epsilon i}\right)=\phi_{\mathrm{m}}^2 \tilde{\theta}_i`$, since $\phi_{\mathrm{m}}^2$ becomes $\phi_{\mathrm{d}}^2$ when $\phi^2 \geq \eta_{\mathrm{m}}$. Therefore, the convergence accuracy can be degraded, so it is recommended to be relatively small. Again, the overall tuning process is complemented and completed by trial and error.
+  
+</details>
+
+<details>
+<summary><b>6. Control law and gains </b></summary>
+<br>
+
+$`\begin{aligned}
+\boldsymbol{\tau} & =\hat{\boldsymbol{H}}(\boldsymbol{q}) \ddot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{C}}(\boldsymbol{q}, \dot{\boldsymbol{q}}) \dot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{D}} \dot{\boldsymbol{q}}_{\mathrm{r}}+\hat{\boldsymbol{g}}(\boldsymbol{q})-\boldsymbol{K}_{\mathrm{v}} \underbrace{\text{sign}(\boldsymbol{s})|\boldsymbol{s}|^{{\lambda_{\mathrm{s}} \tanh \left(s^2\right)}}}_{\boldsymbol{\tau}_{\mathrm{s}}}-\boldsymbol{K}_{\mathrm{p}}\|\boldsymbol{s}\| \boldsymbol{s}, \\
+& =\boldsymbol{Y}_{\mathrm{a}} \hat{\boldsymbol{\theta}}-\boldsymbol{K}_{\mathrm{v}} \boldsymbol{\tau}_{\mathrm{s}}-\boldsymbol{K}_{\mathrm{p}}\|\boldsymbol{s}\| \boldsymbol{s},
+\end{aligned}`$
+
+where Property 5 of Section \ref{model properties} and $`\boldsymbol{Y}_{\mathrm{a}}=\boldsymbol{Y}\left(t, \boldsymbol{q}, \dot{\boldsymbol{q}}, \dot{\boldsymbol{q}}_{\mathrm{r}}, \ddot{\boldsymbol{q}}_{\mathrm{r}}\right)`$ has been used for simplicity; $`\boldsymbol{K}_{\text{v}}, \boldsymbol{K}_{\text{p}} \in \mathbb{R}^{n \times n}`$ are diagonal positive definite matrices, and $`\boldsymbol{\lambda}_{\text{s}} \in \mathbb{R}^{n}`$ is a vector of tuning parameters. In addition, the *i*th element $`\tau_{{\mathrm{s}}i}`$ of $`\boldsymbol{\tau}_{\mathrm{s}} \in \mathbb{R}^n`$ is defined as
+
+$$\tau_{\mathrm{s} i}=\text{sign}\left(s_i\right)\left|s_i\right|^{\lambda_{{\mathrm{s}}i}\text{tanh}(s_i^2)}$$
+
+for $i$ = 1, ... , $n$, and with $\lambda_{{\mathrm{s}}i}$ the *i*th positive element of $\boldsymbol{\lambda}_{\mathrm{s}}$, which satisfies
+
+$$\lambda_{\mathrm{s} i} \geq \frac{ \theta_{\mathrm{s} i}}{\tanh (1)}, \quad \theta_{\mathrm{s} i}>1.$$
   
 </details>
 
